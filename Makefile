@@ -13,7 +13,7 @@ build-smithy:
 	@cd smithy && smithy build
 
 watch:
-	@watchexec --restart --exts rs -- cargo run --bin echo-server
+	@watchexec --restart --exts rs -- cargo run --bin user-server
 
 client:
-	@cargo run --bin echo-client
+	@cargo run --bin user-client

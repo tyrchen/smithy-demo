@@ -1,4 +1,4 @@
-# Echo REST API
+# User REST API
 
 ### signin
 
@@ -13,12 +13,32 @@ Content-Type: application/json
   "password": "abcd1234"
 }
 
-### echo
+### health
 
-# retrieve token as echo service need it.
+# retrieve token as user service need it.
 
 @token = {{ login.response.body.access_token }}
 
-POST http://localhost:3000/api/echo
+POST http://localhost:3000/api/health
 Authorization: Bearer {{ token }}
-X-Echo-Message: hello world!
+X-User-Message: hello world!
+
+
+### create user
+
+POST http://localhost:3000/api/users
+
+{
+  "email": "abcd@gmail.com",
+  "password": "abcd1234",
+  "name": "Tian Chen"
+}
+
+### get user
+
+# retrieve token as user service need it.
+
+@token = {{ login.response.body.accessToken }}
+
+GET http://localhost:3000/api/users/1
+Authorization: Bearer {{ token }}

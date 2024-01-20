@@ -1,13 +1,13 @@
 use crate::AppState;
 use aws_smithy_http_server::body::BoxBody;
 use axum::http::{Request, Response, StatusCode};
-use echo_server_sdk::server::response::IntoResponse;
 use std::future::Future;
 use std::pin::Pin;
 use std::sync::Arc;
 use std::task::{Context, Poll};
 use thiserror::Error;
 use tower::{Layer, Service};
+use user_server_sdk::server::response::IntoResponse;
 
 /// The server request ID has not been added to the [`Request`](http::Request) or has been previously removed.
 #[non_exhaustive]
@@ -78,7 +78,7 @@ impl<S> BearerTokenProvider<S> {
     fn process<Body>(&self, mut req: Request<Body>) -> Result<Request<Body>, BearTokenError> {
         // TODO: how to read the smithy auth trait to see if the auth is required?
         let path = req.uri().path();
-        if path.starts_with("/signin") {
+        if path.starts_with("/signin") || path.starts_with("/health") || path == "/users" {
             return Ok(req);
         }
 

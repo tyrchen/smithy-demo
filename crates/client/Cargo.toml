@@ -1,5 +1,5 @@
 [package]
-name = "echo-client"
+name = "user-client"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,5 +7,5 @@ edition = "2021"
 
 [dependencies]
 anyhow = { workspace = true }
-echo-client-sdk = { workspace = true }
 tokio = { workspace = true }
+user-client-sdk = { workspace = true }

@@ -1,6 +1,6 @@
 $version: "2.0"
 
-namespace com.example
+namespace com.acme
 
 /// Throttling error.
 @error("client")

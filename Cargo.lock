@@ -717,84 +717,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "echo-client"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "echo-client-sdk",
- "tokio",
-]
-
-[[package]]
-name = "echo-client-sdk"
-version = "0.1.0"
-dependencies = [
- "aws-smithy-async",
- "aws-smithy-http",
- "aws-smithy-json",
- "aws-smithy-runtime",
- "aws-smithy-runtime-api",
- "aws-smithy-types",
- "bytes",
- "http",
-]
-
-[[package]]
-name = "echo-server"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "aws-smithy-http-server",
- "axum",
- "echo-service",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "echo-server-sdk"
-version = "0.1.0"
-dependencies = [
- "aws-smithy-http",
- "aws-smithy-http-server",
- "aws-smithy-json",
- "aws-smithy-runtime-api",
- "aws-smithy-types",
- "futures-util",
- "http",
- "hyper",
- "mime",
- "pin-project-lite",
- "tokio",
- "tower",
- "tracing",
-]
-
-[[package]]
-name = "echo-service"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "aws-smithy-http-server",
- "axum",
- "axum-swagger-ui",
- "derive_more",
- "echo-server-sdk",
- "jwt-simple",
- "pin-project-lite",
- "reqwest",
- "serde",
- "serde_json",
- "thiserror",
- "tokio",
- "tower",
- "tower-http 0.4.4",
- "tracing",
- "uuid7",
-]
-
-[[package]]
 name = "ed25519-compact"
 version = "2.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2595,6 +2517,86 @@ dependencies = [
  "form_urlencoded",
  "idna",
  "percent-encoding",
+]
+
+[[package]]
+name = "user-client"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "tokio",
+ "user-client-sdk",
+]
+
+[[package]]
+name = "user-client-sdk"
+version = "0.1.0"
+dependencies = [
+ "aws-smithy-async",
+ "aws-smithy-http",
+ "aws-smithy-json",
+ "aws-smithy-runtime",
+ "aws-smithy-runtime-api",
+ "aws-smithy-types",
+ "bytes",
+ "http",
+]
+
+[[package]]
+name = "user-server"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "aws-smithy-http-server",
+ "axum",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "user-service",
+]
+
+[[package]]
+name = "user-server-sdk"
+version = "0.1.0"
+dependencies = [
+ "aws-smithy-http",
+ "aws-smithy-http-server",
+ "aws-smithy-json",
+ "aws-smithy-runtime-api",
+ "aws-smithy-types",
+ "futures-util",
+ "http",
+ "hyper",
+ "mime",
+ "nom",
+ "percent-encoding",
+ "pin-project-lite",
+ "tokio",
+ "tower",
+ "tracing",
+]
+
+[[package]]
+name = "user-service"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "aws-smithy-http-server",
+ "axum",
+ "axum-swagger-ui",
+ "derive_more",
+ "jwt-simple",
+ "pin-project-lite",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "tokio",
+ "tower",
+ "tower-http 0.4.4",
+ "tracing",
+ "user-server-sdk",
+ "uuid7",
 ]
 
 [[package]]

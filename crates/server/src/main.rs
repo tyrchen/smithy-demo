@@ -1,7 +1,7 @@
 use anyhow::Result;
-use echo_service::{get_router, AppConfig};
 use std::net::SocketAddr;
 use tracing::info;
+use user_service::{get_router, AppConfig};
 
 #[tokio::main]
 pub async fn main() -> Result<()> {

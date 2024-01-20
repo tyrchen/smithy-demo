@@ -1,7 +1,7 @@
 use derive_more::Debug;
-use echo_server_sdk::error::{ForbiddenError, SigninError};
 use jwt_simple::prelude::*;
 use thiserror::Error;
+use user_server_sdk::error::{ForbiddenError, SigninError};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AuthConfig {

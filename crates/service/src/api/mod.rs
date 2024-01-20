@@ -1,16 +1,18 @@
+mod user;
+
+pub use user::*;
+
 use crate::{forbidden, AppState};
 use aws_smithy_http_server::Extension;
-use echo_server_sdk::{error, input, output};
 use jwt_simple::reexports::coarsetime::Duration;
 use std::sync::Arc;
 use tracing::info;
+use user_server_sdk::{error, input, output};
 
-pub async fn echo_message(
-    input: input::EchoMessageInput,
-) -> Result<output::EchoMessageOutput, error::EchoMessageError> {
-    info!("echo: {:?}", input);
+pub async fn health(input: input::HealthInput) -> Result<output::HealthOutput, error::HealthError> {
+    info!("user: {:?}", input);
     let message = input.message;
-    let output = output::EchoMessageOutput { message };
+    let output = output::HealthOutput { message };
     Ok(output)
 }
 

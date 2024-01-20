@@ -15,11 +15,11 @@ use axum::{
 };
 use axum_swagger_ui::swagger_ui;
 use derive_more::Debug;
-use echo_server_sdk::{EchoService, EchoServiceConfig};
 use middleware::{BearerTokenProviderLayer, ServerTimingLayer};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use tower_http::cors::{Any, CorsLayer};
+use user_server_sdk::{UserService, UserServiceConfig};
 
 #[derive(Debug)]
 pub struct AppState {
@@ -43,7 +43,7 @@ pub async fn get_router(conf: AppConfig) -> Router {
 
     let state = Arc::new(AppState::new(conf));
 
-    let config = EchoServiceConfig::builder()
+    let config = UserServiceConfig::builder()
         // IdentityPlugin is a plugin that adds a middleware to the service, it just shows how to use plugins
         .http_plugin(IdentityPlugin)
         .layer(AddExtensionLayer::new(state.clone()))
@@ -52,14 +52,16 @@ pub async fn get_router(conf: AppConfig) -> Router {
             HeaderName::from_static("x-request-id"),
         ))
         .build();
-    let api = EchoService::builder(config)
-        .echo_message(api::echo_message)
+    let api = UserService::builder(config)
+        .health(api::health)
         .signin(api::signin)
+        .create_user(api::create_user)
+        .get_user(api::get_user)
         .build()
-        .expect("failed to build an instance of Echo Service");
+        .expect("failed to build an instance of User Service");
 
     let doc_url = "/swagger/openapi.json";
-    let doc = include_str!("../../../smithy/build/smithy/source/openapi/EchoService.openapi.json");
+    let doc = include_str!("../../../smithy/build/smithy/source/openapi/UserService.openapi.json");
 
     let cors = CorsLayer::new()
         // allow `GET` and `POST` when accessing the resource
@@ -89,7 +91,7 @@ pub async fn get_router(conf: AppConfig) -> Router {
 impl Default for AppConfig {
     fn default() -> Self {
         Self {
-            server_name: "echo-service".to_string(),
+            server_name: "user-service".to_string(),
             port: 3000,
             auth: AuthConfig::default(),
         }

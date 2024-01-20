@@ -1,5 +1,5 @@
 use anyhow::Result;
-use echo_client_sdk::{config::Token, Client, Config};
+use user_client_sdk::{config::Token, Client, Config};
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -9,8 +9,8 @@ async fn main() -> Result<()> {
         .build();
     let client = Client::from_conf(config);
 
-    println!("\n--- Calling echo_message operation without authentication");
-    let ret = client.echo_message().message("example").send().await;
+    println!("\n--- Calling user_message operation without authentication");
+    let ret = client.health().message("example").send().await;
     println!("{:?}", ret);
 
     println!("\n--- Calling signin operation to get a token");
@@ -25,7 +25,7 @@ async fn main() -> Result<()> {
 
     let token = ret?.access_token;
 
-    println!("\n-- Calling echo_message operation with authentication");
+    println!("\n-- Calling user_message operation with authentication");
 
     let config = Config::builder()
         .endpoint_url("http://localhost:3000/api")
@@ -34,7 +34,7 @@ async fn main() -> Result<()> {
         .build();
     let client = Client::from_conf(config);
 
-    let ret = client.echo_message().message("example").send().await?;
+    let ret = client.health().message("example").send().await?;
 
     println!("{:?}", ret);
 

@@ -1,34 +1,35 @@
 $version: "2.0"
 
-namespace com.example
+namespace com.acme
 
 use aws.protocols#restJson1
 use smithy.framework#ValidationException
 use aws.api#service
 
-
-/// Echoes input
-@service(sdkId: "echo")
+/// Useres input
+@service(sdkId: "user")
 @restJson1
 @httpBearerAuth
-service EchoService {
+service UserService {
     version: "2023-12-03"
-    operations: [EchoMessage, Signin]
+    resources: [User]
+    operations: [Health, Signin]
 }
 
-@http(uri: "/echo", method: "POST")
-operation EchoMessage {
+@http(uri: "/health", method: "POST")
+@auth([])
+operation Health {
     input := {
         @required
-        @httpHeader("x-echo-message")
+        @httpHeader("x-message")
         message: String
     }
     output := {
         @required
-        @httpHeader("x-echo-message")
+        @httpHeader("x-status")
         message: String
     }
-    errors: [ValidationException, ServerError, UnauthorizedError]
+    errors: [ValidationException, ServerError]
 }
 
 
