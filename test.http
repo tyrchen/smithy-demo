@@ -17,11 +17,11 @@ Content-Type: application/json
 
 # retrieve token as user service need it.
 
-@token = {{ login.response.body.access_token }}
+@token = {{ login.response.body.accessToken }}
 
 POST http://localhost:3000/api/health
 Authorization: Bearer {{ token }}
-X-User-Message: hello world!
+X-Message: hello world!
 
 
 ### create user
@@ -36,9 +36,48 @@ POST http://localhost:3000/api/users
 
 ### get user
 
-# retrieve token as user service need it.
-
-@token = {{ login.response.body.accessToken }}
-
 GET http://localhost:3000/api/users/1
 Authorization: Bearer {{ token }}
+
+
+### list user
+
+GET http://localhost:3000/api/users?nextToken=abcd
+Authorization: Bearer {{ token }}
+
+
+### update user
+
+PUT http://localhost:3000/api/users/1
+Authorization: Bearer {{ token }}
+
+{
+  "email": "t1@abc.com"
+}
+
+### delete user
+
+DELETE http://localhost:3000/api/users/1
+Authorization: Bearer {{ token }}
+
+### change password
+
+PATCH http://localhost:3000/api/users/1/password
+Authorization: Bearer {{ token }}
+
+{
+  "oldPassword": "abcd1234",
+  "mfaCode": "123456",
+  "newPassword": "abcd12345"
+}
+
+### get user by email
+
+GET http://localhost:3000/api/user?email=tchen%40abc.com
+Authorization: Bearer {{ token }}
+
+{
+  "oldPassword": "abcd1234",
+  "mfaCode": "123456",
+  "newPassword": "abcd12345"
+}

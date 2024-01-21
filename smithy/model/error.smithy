@@ -4,7 +4,7 @@ namespace com.acme
 
 /// Throttling error.
 @error("client")
-@retryable
+@retryable(throttling: true)
 @httpError(429)
 structure ThrottlingError {
     @required

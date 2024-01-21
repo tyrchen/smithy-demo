@@ -57,6 +57,11 @@ pub async fn get_router(conf: AppConfig) -> Router {
         .signin(api::signin)
         .create_user(api::create_user)
         .get_user(api::get_user)
+        .list_users(api::list_users)
+        .update_user(api::update_user)
+        .delete_user(api::delete_user)
+        .get_user_by_email(api::get_user_by_email)
+        .change_password(api::change_password)
         .build()
         .expect("failed to build an instance of User Service");
 
